@@ -7,4 +7,6 @@ update
 
 update_in
 
+get_in
+
 feel free to suggest other functions we can implement in ruby that you miss in clojure

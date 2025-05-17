@@ -1,10 +1,14 @@
 module HashUtils
-  def self.assoc_in(map, path, value)
+  def self.assoc_in(hash, path, value)
     first, *rest = path
     if rest.empty?
-      map.merge(first => value)
+      if hash.is_a? Array
+        hash.dup.tap { |new_array| new_array[first] = value }
+      else
+        hash.merge(first => value)
+      end
     else
-      map.merge(first => assoc_in(map.fetch(first, {}), rest, value))
+      hash.merge(first => assoc_in(hash.fetch(first, {}), rest, value))
     end
   end
 
@@ -14,5 +18,9 @@ module HashUtils
 
   def self.update_in(target, path)
     assoc_in(target, path, yield(target.dig(*path)))
+  end
+
+  def self.get_in(hash, path, default = nil)
+    hash.dig(*path) || default
   end
 end
