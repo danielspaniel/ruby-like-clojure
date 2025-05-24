@@ -1,15 +1,10 @@
-module HashUtils
+module RLC
   def self.assoc_in(hash, path, value)
     first, *rest = path
-    if rest.empty?
-      if hash.is_a? Array
-        hash.dup.tap { |new_array| new_array[first] = value }
-      else
-        hash.merge(first => value)
-      end
-    else
-      hash.merge(first => assoc_in(hash.fetch(first, {}), rest, value))
-    end
+    return hash.dup.tap { |new_array| new_array[first] = value } if hash.is_a? Array
+    return hash.merge(first => value) if rest.empty?
+
+    hash.merge(first => assoc_in(hash.fetch(first, {}), rest, value))
   end
 
   def self.update(target, key)
@@ -23,4 +18,4 @@ module HashUtils
   def self.get_in(hash, path, default = nil)
     hash.dig(*path) || default
   end
-end
+end 
