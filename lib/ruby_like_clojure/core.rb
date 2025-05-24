@@ -1,4 +1,4 @@
-module HashUtils
+module RLC
   def self.assoc_in(hash, path, value)
     first, *rest = path
     if rest.empty?
@@ -23,4 +23,4 @@ module HashUtils
   def self.get_in(hash, path, default = nil)
     hash.dig(*path) || default
   end
-end
+end 

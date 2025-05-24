@@ -3,9 +3,9 @@ like:
 
 assoc_in
 
-update
-
 update_in
+
+update
 
 get_in
 
